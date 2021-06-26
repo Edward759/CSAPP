@@ -128,3 +128,62 @@ int odd_ones(unsigned x)
     x = x ^ (x >> 1);
     return x & 0x1;
 }
+
+//2.66
+int leftmost_one(unsigned x)
+{
+    x |= x >> 1;
+    x |= x >> 2;
+    x |= x >> 4;
+    x |= x >> 8;
+    x |= x >> 16;
+    return (x >> 1) + (x && 1);
+}
+
+//2.67
+//A. 32位机器未定义移位32次
+//B
+int bad_int_size_is_32_32()
+{
+    int set_msb = 1 << 31;
+    int beyond_msb = 2 << 31;
+    return set_msb && !beyond_msb;
+}
+//C
+int bad_int_size_is_32_16()
+{
+    int a = 1 << 15;
+    a <<= 15;
+    int set_msb = a << 1;
+    int beyond_msb = a << 2;
+    return set_msb && !beyond_msb;
+}
+
+//2.68
+int lower_one_mask(int n)
+{
+    return (0x1 << n) - 1;
+}
+
+//2.69
+unsigned rotate_left(unsigned x, int n)
+{
+    int overflow = x >> (sizeof(unsigned) << 3) - n;
+    x <<= n;
+    return overflow + x;
+}
+
+//2.70
+int fits_bits(int x,int n)
+{
+    unsigned ux=(unsigned)x;
+    return !(ux >> n - 1);
+}
+
+//2.71
+typedef unsigned packed_t;
+int xbyte(packed_t word, int bytenum)
+{
+    int w = sizeof(packed_t);
+    return int(word << ((w - bytenum - 1) << 3)) >> ((w - 1) << 3);
+}
