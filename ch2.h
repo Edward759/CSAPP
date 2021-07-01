@@ -187,3 +187,28 @@ int xbyte(packed_t word, int bytenum)
     int w = sizeof(packed_t);
     return int(word << ((w - bytenum - 1) << 3)) >> ((w - 1) << 3);
 }
+
+//2.72
+void copy_int(int val, void* buf, int maxbytes)
+{
+    if(maxbytes>0&&maxbytes>=sizeof(val))
+        memcpy(buf, (void *)&val, sizeof(val));
+}
+
+//2.73
+int saturating_add(int x,int y)
+{
+    int sum = x + y;
+    int mask = INT_MIN;
+    int pos_of = !(x & mask) && !(y & mask) && (sum & mask);
+    int neg_of = (x & mask) && (y & mask) && !(sum & mask);
+    (pos_of && (sum = INT_MAX)) || (neg_of && (sum = INT_MIN));
+    return sum;
+}
+
+//2.74
+int tsub_ok(int x, int y)
+{
+    int sub = x - y;
+    return !((x > 0 && y < 0 && sub < 0) || (x < 0 && y > 0 && sub > 0));
+}
