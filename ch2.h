@@ -212,3 +212,66 @@ int tsub_ok(int x, int y)
     int sub = x - y;
     return !((x > 0 && y < 0 && sub < 0) || (x < 0 && y > 0 && sub > 0));
 }
+
+//2.75
+unsigned unsigned_high_prob(unsigned x, unsigned y)
+{
+    //TODO
+}
+
+//2.76
+void *calloc(size_t nmemb, size_t size)
+{
+    //TODO
+}
+
+//2.77
+void exe_2_77()
+{
+    int x = 2;
+    int ans1 = x * 17;
+    int ans2 = (x << 4) + x;
+    cout << (ans1 == ans2) << endl;
+
+    ans1 = x * -7;
+    ans2 = x - (x << 3);
+    cout << (ans1 == ans2) << endl;
+
+    ans1 = x * 60;
+    ans2 = (x << 6) - (x << 2);
+    cout << (ans1 == ans2) << endl;
+
+    ans1 = x * -112;
+    ans2 = (x << 4) - (x << 7);
+}
+
+//2.78
+int divide_power2(int x, int k)
+{
+    int sig = x & INT_MIN;
+    (sig && (x = x + (1 << k) - 1));
+    return x >> k;
+}
+
+//2.79
+int mul3div4(int x)
+{
+    x = (x << 1) + x;
+    return divide_power2(x, 2);
+}
+
+//2.80
+int threefourths(int x)
+{
+    //TODO
+}
+
+//2.81
+void exe_2_81(int k, int j)
+{
+    int x = -1 << k;
+    show_int(x);
+
+    x = ((1 << k) - 1) << j;
+    show_int(x);
+}
