@@ -275,3 +275,10 @@ void exe_2_81(int k, int j)
     x = ((1 << k) - 1) << j;
     show_int(x);
 }
+
+//2.90
+float fpwr2(int x)
+{
+    //TODO
+    return 0;
+}
