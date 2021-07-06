@@ -282,3 +282,48 @@ float fpwr2(int x)
     //TODO
     return 0;
 }
+
+typedef unsigned float_bits;
+//2.92
+float_bits float_negate(float_bits f)
+{
+    unsigned exp = f >> 23 & 0xff;
+    unsigned frac = f & 0x7fffff;
+    if(exp == 0xff && frac)
+        return f;
+
+    unsigned sign = !(f >> 31);
+    return (sign << 31) | (exp << 23) | frac;
+}
+
+//2.93
+float_bits float_absval(float_bits f)
+{
+    unsigned exp = f >> 23 & 0xff;
+    unsigned frac = f & 0x7fffff;
+    if(exp == 0xff && frac)
+        return f;
+
+    return (0x0 << 31) | (exp << 23) | frac;
+}
+
+//2.94
+float_bits float_twice(float_bits f)
+{
+    unsigned exp = (f >> 23 & 0xff) + 1;
+    unsigned frac = f & 0x7fffff;
+    if(exp == 0xff)
+        return f;
+    else if(exp == 0)
+        frac <<= 1;
+    else if(exp == 0xff - 1)
+    {
+        exp = 0xff;
+        frac = 0;
+    }
+    else
+        exp += 1;
+
+    unsigned sign = f >> 31;
+    return (sign << 31) | (exp << 23) | frac;
+}
