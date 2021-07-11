@@ -327,3 +327,48 @@ float_bits float_twice(float_bits f)
     unsigned sign = f >> 31;
     return (sign << 31) | (exp << 23) | frac;
 }
+
+//2.95
+float_bits float_half(float_bits f)
+{
+    //TODO
+    return 0;
+}
+
+//2.96
+int float_f2i(float_bits f)
+{
+    unsigned exp = (f >> 23) & 0xff;
+    unsigned frac = f & 0x7fffff;
+    unsigned sign = f >> 31;
+    unsigned bias = 0x7f;
+    int ans;
+    unsigned E, M;
+
+    if(exp >= 0 && exp < bias)
+        ans = 0;
+    else if(exp >= 31 + bias)
+        ans = 0x80000000;
+    else
+    {
+        E = exp - bias;
+        M = frac | 0x800000;
+
+        if(E > 23)
+            ans = M << (E - 23);
+        else
+            ans = M >> (23 - E);
+    }
+
+    if(sign)
+        return -ans;
+    else
+        return ans;
+}
+
+//2.97
+float_bits float_i2f(int i)
+{
+    //TODO
+    return 0;
+}
